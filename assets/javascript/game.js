@@ -8,8 +8,8 @@ let cafeGame = {
 
     }
 
-
 console.log(cafeGame.words.length);
+console.log(cafeGame.guesses);
 
 // Pick a random word for the player to guess
 var mysteryWord = cafeGame.words[Math.floor(Math.random() * cafeGame.words.length)];
@@ -30,69 +30,56 @@ for (var i = 0; i < mysteryWord.length; i++) {
 document.getElementById("current").innerHTML = answerArray.join(" ");
 
 // populate html w/ false Array, blank array for guessed answers
-//document.getElementById("already-guessed").innerHTML = falseArray;
+document.getElementById("already-guessed").innerHTML = falseArray;
 
 // display wins in the "wins-amnt" paragraph
 var wins = 0;
 document.getElementById("wins-amnt").innerHTML =  wins;
 
-// display guesses amnt
-document.getElementById("remaining").innerHTML = cafeGame.guesses;
-
 // define a variable with the remaining letters to guess
-//var guessesLeft = cafeGame.guesses;
-//console.log(guessesLeft);
+var guessesLeft = cafeGame.guesses;
+console.log(guessesLeft);
+
+// display guesses amnt
+document.getElementById("remaining").innerHTML = guessesLeft;
 
 // take in user guesses via keystrokes
 document.addEventListener("keypress", event => {
         let userInput = String.fromCharCode(event.keyCode);
         console.log(userInput);
 
-        let guessesLeft = cafeGame.guesses;
+// compare keypress with mystery word array
 
-// loop event function as long as there's more than 0 geusses, update  by subtracting one from guesses  
-for ( k = guessesLeft; k > 0; k--) {
-
-// run function while k > 0
-while (guessesLeft > 0) {
-
-        for (j = 0; j < mysteryWord.length; j++) {
-
-                if (userInput === mysteryWord[j]) {
+     var letterFound = false;
+     for (j = 0; j < mysteryWord.length; j++) {
+            if (userInput == mysteryWord.charAt[j]) {
                 // record right guesses in answer array
                 answerArray[j] = userInput;
-                document.getElementById("current").innerHTML += userInput;
-                break;
-
-            } else {
-
-                falseArray[j] = userInput;
-                document.getElementById("already-guessed").append(String(userInput));
-                break;
-
-            };
+                //answerArray.push(userInput);
+                //document.getElementById("current").append(userInput);
+                letterFound = true;
 
             }
-            //else {
-                // record false answers in "already guessed" array
-                //falseArray[j] = userInput;
+        }
 
-               // document.getElementById("already-guessed").append(String(userInput)); }
-            
+        if(!letterFound) {
+            falseArray.push(userInput);
+            document.getElementById("already-guessed").append(userInput + " ");
+        }
 
-        
-
-        document.getElementById("already-guessed").append(String(userInput));
-
-        // guessesLeft goes down by 1
-        //document.getElementById("remaining").innerHTML = 
+        document.getElementById("current").innerHTML = answerArray.join(" ");
+    
     
 
-    }
+    document.getElementById("remaining").innerHTML = guessesLeft--;
+
+    });
+
+if (guessesLeft === 0) {
+
+    alert("You lost!")
 
 }
-
-});
 
 //guessesLeft--;
 
