@@ -18,6 +18,7 @@ console.log(mysteryWord);
 
 // empty array to store guesses
 var answerArray = [];
+var falseArray = [];
 
 // create blank spaces equal to the length of the mystery word
 for (var i = 0; i < mysteryWord.length; i++) {
@@ -28,6 +29,9 @@ for (var i = 0; i < mysteryWord.length; i++) {
 // populate html w/ answerArray - currently blank
 document.getElementById("current").innerHTML = answerArray.join(" ");
 
+// populate html w/ false Array, blank array for guessed answers
+//document.getElementById("already-guessed").innerHTML = falseArray;
+
 // display wins in the "wins-amnt" paragraph
 var wins = 0;
 document.getElementById("wins-amnt").innerHTML =  wins;
@@ -36,36 +40,61 @@ document.getElementById("wins-amnt").innerHTML =  wins;
 document.getElementById("remaining").innerHTML = cafeGame.guesses;
 
 // define a variable with the remaining letters to guess
-var guessesLeft = cafeGame.guesses;
-console.log(guessesLeft);
+//var guessesLeft = cafeGame.guesses;
+//console.log(guessesLeft);
 
 // take in user guesses via keystrokes
 document.addEventListener("keypress", event => {
         let userInput = String.fromCharCode(event.keyCode);
         console.log(userInput);
 
-// loop to track guesses (10 guesses)
+        let guessesLeft = cafeGame.guesses;
+
+// loop event function as long as there's more than 0 geusses, update  by subtracting one from guesses  
+for ( k = guessesLeft; k > 0; k--) {
+
+// run function while k > 0
 while (guessesLeft > 0) {
 
         for (j = 0; j < mysteryWord.length; j++) {
 
-           // let userInput = String.fromCharCode(event.keyCode);
-
-            if (userInput === mysteryWord[j]) {
+                if (userInput === mysteryWord[j]) {
                 // record right guesses in answer array
                 answerArray[j] = userInput;
+                document.getElementById("current").innerHTML += userInput;
+                break;
+
             } else {
-                document.getElementById("already-guessed").innerHTML = userInput;
+
+                falseArray[j] = userInput;
+                document.getElementById("already-guessed").append(String(userInput));
+                break;
+
+            };
+
             }
+            //else {
+                // record false answers in "already guessed" array
+                //falseArray[j] = userInput;
 
-        }
+               // document.getElementById("already-guessed").append(String(userInput)); }
+            
 
-        // subtract one from your remaining guesses
-        guessesLeft--;
+        
+
+        document.getElementById("already-guessed").append(String(userInput));
+
+        // guessesLeft goes down by 1
+        //document.getElementById("remaining").innerHTML = 
+    
 
     }
 
+}
+
 });
 
+//guessesLeft--;
+
 // increase the Win counter when a word is guessed
-//if (guessesLeft >= 0 && 
+//if (guessesLeft >= 0 && answerArray[j].concat === mysteryWord) { wins++; };
