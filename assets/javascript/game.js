@@ -6,7 +6,8 @@ let cafeGame = {
 
     guesses: 10,
 
-}
+    }
+
 
 console.log(cafeGame.words.length);
 
@@ -15,51 +16,56 @@ var mysteryWord = cafeGame.words[Math.floor(Math.random() * cafeGame.words.lengt
 
 console.log(mysteryWord);
 
-// create blanks in the "current" paragraph
+// empty array to store guesses
+var answerArray = [];
+
+// create blank spaces equal to the length of the mystery word
 for (var i = 0; i < mysteryWord.length; i++) {
 
-      document.getElementById("current").innerHTML += "_ ";
+      answerArray[i]= "_";
+
+    }
+// populate html w/ answerArray - currently blank
+document.getElementById("current").innerHTML = answerArray.join(" ");
+
+// display wins in the "wins-amnt" paragraph
+var wins = 0;
+document.getElementById("wins-amnt").innerHTML =  wins;
+
+// display guesses amnt
+document.getElementById("remaining").innerHTML = cafeGame.guesses;
+
+// define a variable with the remaining letters to guess
+var guessesLeft = cafeGame.guesses;
+console.log(guessesLeft);
+
+// take in user guesses via keystrokes
+document.addEventListener("keypress", event => {
+        let userInput = String.fromCharCode(event.keyCode);
+        console.log(userInput);
+
+// loop to track guesses (10 guesses)
+while (guessesLeft > 0) {
+
+        for (j = 0; j < mysteryWord.length; j++) {
+
+           // let userInput = String.fromCharCode(event.keyCode);
+
+            if (userInput === mysteryWord[j]) {
+                // record right guesses in answer array
+                answerArray[j] = userInput;
+            } else {
+                document.getElementById("already-guessed").innerHTML = userInput;
+            }
+
+        }
+
+        // subtract one from your remaining guesses
+        guessesLeft--;
 
     }
 
-// "Press any key to get started" - take any user KEY PRESS to initialize the game
+});
 
-// loop to track guesses (10 guesses)
-for ( i = 1; i <= cafeGame.guesses; i++) {
-
-    document.addEventListener("keydown", 
-    
-    function userInput(event) {
-
-        
-
-
-    })
-
-
-
-}
-
-// compare user input against stored string
-
-
-// track the number of "guesses" - of KEY PRESSES - against a finite counter
-
-// keep track of the LETTERS typed
-
-
-
-// falsy characters are recorded under "Guessed Lettrs"
-
-// truthy characters are shown as progress
-
-
-// the GUESSES counter decreases with each guess
-
-// LOOP
-
-
-// Win Counter goes up by 1 for every victory (properly guessed word)
-
-// after the user's guesses expire OR they win, game automatically restarts (LOOPS)
-
+// increase the Win counter when a word is guessed
+//if (guessesLeft >= 0 && 

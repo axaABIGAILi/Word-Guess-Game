@@ -1,6 +1,7 @@
 body {
     background-image: url("../images/coffeebg.jpg");
-    background-size: cover; 
+    background-size: cover;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 div {
@@ -8,11 +9,30 @@ div {
     color: #3d221c;
 }
 
+header {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#container {
+    width: 50%;
+    margin: 0 auto;
+}
+
 #left-display {
     float: left;
-    /* margin-right: 20px; */
+    padding: 10px;
 }
 
 #right-display {
     float: right;
+    padding: 10px;
 }
