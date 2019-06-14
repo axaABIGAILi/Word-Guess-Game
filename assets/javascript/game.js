@@ -11,6 +11,35 @@ let cafeGame = {
 console.log(cafeGame.words.length);
 console.log(cafeGame.guesses);
 
+            // a function that resets the word and array for later
+            function newWord(){
+
+                // Pick a random word for the player to guess
+                var mysteryWord = cafeGame.words[Math.floor(Math.random() * cafeGame.words.length)];
+    
+                // log mystery word
+                console.log(mysteryWord);
+    
+                // empty array to store guesses
+                var answerArray = [];
+                var falseArray = [];
+    
+                // create blank spaces equal to the length of the mystery word
+                for (var i = 0; i < mysteryWord.length; i++) {
+    
+                    answerArray[i]= "_";
+    
+                    }
+    
+                // populate html w/ answerArray - currently blank
+                document.getElementById("current").innerHTML = answerArray.join(" ");
+    
+                // populate html w/ false Array, blank array for guessed answers
+                document.getElementById("already-guessed").innerHTML = falseArray;
+    
+                guessesLeft = 10;
+            }
+
 // Pick a random word for the player to guess
 var mysteryWord = cafeGame.words[Math.floor(Math.random() * cafeGame.words.length)];
 
@@ -20,6 +49,9 @@ console.log(mysteryWord);
 // empty array to store guesses
 var answerArray = [];
 var falseArray = [];
+
+// empty variable to check the string against later
+var finalAnswer;
 
 // create blank spaces equal to the length of the mystery word
 for (var i = 0; i < mysteryWord.length; i++) {
@@ -71,25 +103,30 @@ document.addEventListener("keypress", event => {
 
         document.getElementById("current").innerHTML = answerArray.join(" ");
 
-        // a function to convert the answer array to a string that can be compared to the mystery word IF there are no "_"
-            var finalAnswer;
+        // check whether or not the word is filled in (if there's any "_"'s left)
 
-                if (answerArray.includes("_")) {
-                    finalAnswer = false;
-                } else {
-                    finalAnswer = true;
-                }
+            if (answerArray.includes("_")) {
+                var finalAnswer = false;
+            } else {
+                var finalAnswer = true;
+                wins++;
+                document
+                document.getElementById("wins-amnt").innerHTML = wins;
+                guessesLeft = 10;
+            }
 
-                // statement to check array for falsiness and return "You lost" message
-                //if (guessesLeft = 0 && answerArray.includes("_")) {alert("You lost!")}
+        // resets guess counter and adds +1 to wins
+            //if (finalAnswer) {
+                //wins++;
+                //document.getElementById("wins-amnt").innerHTML = wins;
+                //guessesLeft = 10;
+            //}
+
 
     document.getElementById("remaining").innerHTML = guessesLeft--;
 
-    // resets the guess counter, adds +1 to wins
-    if (finalAnswer) {
-        wins++;
-        document.getElementById("wins-amnt").innerHTML = wins;
-        guessesLeft = 10;
-     }
-
     });
+    
+        // resets word if finalAnswer is true/there is a win
+        if (finalAnswer) { newWord();}
+
